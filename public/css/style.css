@@ -44,3 +44,82 @@ body {
 
   color: #000000;
 }
+
+.header-zap {
+  width: 100vw;
+
+  position: fixed;
+  top: 0px;
+  left: 0px;
+
+  display: flex;
+}
+
+.header-zap img {
+  padding: 26px;
+}
+
+.flashcard-page {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flashcard {
+  width: 392px;
+  height: 575px;
+
+  padding: 16px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+}
+
+.flashcard-header {
+  display: flex;
+  justify-content: center;
+
+}
+
+.flashcard-header>h1 {
+  height: 21px;
+
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+
+  padding: 3px;
+}
+
+.flashcard-header>p {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+
+  padding: 12px;
+
+}
+
+.flashcard-footer>img {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+
+  padding: 12px;
+}
