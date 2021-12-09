@@ -6,6 +6,7 @@ export default function FlashcardsPage(Props) {
     return(
         <div className="flashcard-page">
             <HeaderZap/>
+            <h1 className="deck-name">{Props.deckName}</h1>
             <Flashcard 
                 deckName={Props.deckName}
                 deck={Props.deck}

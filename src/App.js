@@ -2,16 +2,18 @@ import react from "react"
 import HomePage from "./components/Homepage"
 import FlashcardsPage from "./components/FlashcardsPage"
 import ExportDecks from "./assets/Decks"
+import "./assets/css/reset.css"
+import "./assets/css/style.css"
 
 let Decks = ExportDecks()
 
 
 export default function App () {
     
-
     const [Page, SetPage] = react.useState(RenderHomePage);
 
     let CardPage = 1;
+    let Goal = 0
 
     function RenderHomePage(){
         
@@ -23,15 +25,7 @@ export default function App () {
     }
 
     function ExportPickedDeck(deckName, face, newFace, cardStatus){
-        
-
-        console.log("Renderizei ExportPickedDeck")
-        console.log(face)
-        console.log(newFace)
-        console.log(cardStatus)
-        
-
-
+ 
         let deck = Decks.find(element =>  element.name === deckName )
      
         SetPage(
@@ -54,23 +48,36 @@ export default function App () {
     }
 
     function FlipCard(deckName, face, newFace, cardStatus){
+        
+        let deck = Decks.find(element =>  element.name === deckName )
+        
+        if(CardPage === deck.total+1){
 
-        console.log("Renderizei Flipcard")
-        console.log(face)
-        console.log(newFace)
-        console.log(cardStatus)
+            CardPage = 1;
+            Goal = 0
 
-                      
+            SetPage(
+                <HomePage 
+                    page= {ExportPickedDeck}
+                />
+            )
+        }
+
+        else{
+
         ExportPickedDeck(deckName, face, newFace, cardStatus)
-       
+        }
     }
 
     function UserPick(deckName, face, newFace, cardStatus){
 
-        console.log("Renderizei UserPick")
+        if(cardStatus ==="correct"){
+        Goal++
+        }
+
         ExportPickedDeck(deckName, face, newFace, cardStatus)
         CardPage++
-      
+        console.log(Goal)
     }
 
     return(

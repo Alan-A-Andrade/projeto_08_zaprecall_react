@@ -13,7 +13,8 @@ export default function HomePage ({page}) {
     <div className="home-page">
       <img src={Logo} alt="ZapRecall Logo"/>
         <div className="list-decks">
-        {Decks.map(element => <ButtonZap page={page} texto={element.name}/>)}
+        <input placeholder="Sua meta de zaps" />
+        {Decks.map((element,index) => <ButtonZap page={page} texto={element.name} key={index}/>)}
         </div>
     </div>
 
