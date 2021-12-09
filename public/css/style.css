@@ -75,13 +75,14 @@ body {
   padding: 16px;
 
   background: #FFFFFF;
+  border: 5px solid #FFFFFF;
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   position: relative;
 
 }
@@ -100,6 +101,10 @@ body {
   line-height: 14px;
 
   padding: 3px;
+  position: absolute;
+  top: 15px;
+
+  display: none;
 }
 
 .flashcard-header>p {
@@ -116,10 +121,143 @@ body {
 
 }
 
+.flashcard-footer {
+  width: 100%;
+
+  display: flex;
+  gap: 16px;
+
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  bottom: 0px;
+  padding: 12px;
+}
+
 .flashcard-footer>img {
   position: absolute;
   bottom: 0px;
   right: 0px;
 
   padding: 12px;
+}
+
+.flashcard>h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 33px;
+
+  text-align: center;
+
+}
+
+.flashcard>p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+
+  margin: 40px 0px;
+  padding: 0px 49px;
+
+  overflow: scroll;
+  text-align: justify;
+
+  display: none;
+
+}
+
+.answer {
+  width: 65px;
+  height: 48px;
+  box-sizing: border-box;
+  border: 3px solid;
+  border-radius: 12px;
+
+  padding: 3px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  display: none;
+}
+
+.answer:nth-of-type(1) {
+  border-color: #000000;
+}
+
+.answer:nth-of-type(2) {
+  border-color: #F74848;
+}
+
+.answer:nth-of-type(3) {
+  border-color: #62DB38;
+}
+
+.answer:nth-of-type(4) {
+  border-color: #FFEF61;
+  font-weight: bold;
+}
+
+.backface {}
+
+.flashcard.backface .flashcard-footer>img {
+  display: none;
+}
+
+.flashcard.backface .answer {
+  display: flex;
+}
+
+.flashcard.backface>p {
+  display: initial;
+}
+
+.flashcard.backface>h1 {
+  display: none;
+}
+
+.flashcard.backface .flashcard-header>h1 {
+  display: initial;
+}
+
+.neutral {
+  border: 5px solid #000000;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
+
+}
+
+.incorrect {
+  border: 5px solid #F74848;
+  box-shadow: 0px 8px 24px rgba(247, 72, 72, 0.12);
+
+}
+
+.unsure {
+  border: 5px solid #62DB38;
+  box-shadow: 0px 8px 24px rgba(98, 219, 56, 0.12);
+
+}
+
+
+.correct {
+  border: 5px solid #FFEF61;
+  box-shadow: 0px 8px 24px rgba(255, 239, 97, 0.12);
+
+}
+
+.flashcard.backface:not(.blank) .answer {
+  display: none;
+}
+
+.flashcard.backface:not(.blank) .flashcard-footer>img {
+  display: initial;
 }
