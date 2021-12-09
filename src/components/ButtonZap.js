@@ -1,12 +1,12 @@
 import NextIcon from "../assets/next.png"
 
-export default function ButtonZap (Props) {
+export default function ButtonZap ({texto, page}) {
 
     return(
   
-      <div onClick={Props.onClick} className="button-zap">
-        <h1>{Props.texto}</h1>
-        <img src={NextIcon} alt={`Butão para Prosseguir com ${Props.texto}`}/>
+      <div onClick={() => page(texto, "frontface", "backface", "blank")} className="button-zap">
+        <h1>{texto}</h1>
+        <img src={NextIcon} alt={`Butão para Prosseguir com ${texto}`}/>
       </div>
   
     )

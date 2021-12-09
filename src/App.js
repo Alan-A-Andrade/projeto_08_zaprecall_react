@@ -6,14 +6,71 @@ import ExportDecks from "./assets/Decks"
 let Decks = ExportDecks()
 
 
-
 export default function App () {
+    
+
+    const [Page, SetPage] = react.useState(RenderHomePage);
+
+    let CardPage = 1;
+
+    function RenderHomePage(){
+        
+        return(
+            <HomePage 
+                page= {ExportPickedDeck}
+            />
+        )
+    }
+
+    function ExportPickedDeck(deckName, face, newFace, cardStatus){
+        
+
+        console.log("Renderizei ExportPickedDeck")
+        console.log(face)
+        console.log(newFace)
+        console.log(cardStatus)
+        
 
 
-    const [Page, SetPage] = react.useState(<HomePage name={Decks[0].name} onClick={()=>ExportPickedDeck()}/>)
+        let deck = Decks.find(element =>  element.name === deckName )
+     
+        SetPage(
 
-    function ExportPickedDeck(){
-        SetPage(<FlashcardsPage face={""} cardStatus={"blank"} question={Decks[0].cards[0].question} answer={Decks[0].cards[0].answer} ThisCardNumber={Decks[0].cards[0].cardNumber} NumberOfCards={Decks[0].total}/>)
+            <FlashcardsPage
+            deckName={deckName}
+            deck = {deck}
+
+            CardPage={CardPage}
+            
+            face = {face}
+            newFace = {newFace}
+            cardStatus = {cardStatus} 
+
+            Flip = {FlipCard}
+            Picked ={UserPick}
+            />
+        )
+    
+    }
+
+    function FlipCard(deckName, face, newFace, cardStatus){
+
+        console.log("Renderizei Flipcard")
+        console.log(face)
+        console.log(newFace)
+        console.log(cardStatus)
+
+                      
+        ExportPickedDeck(deckName, face, newFace, cardStatus)
+       
+    }
+
+    function UserPick(deckName, face, newFace, cardStatus){
+
+        console.log("Renderizei UserPick")
+        ExportPickedDeck(deckName, face, newFace, cardStatus)
+        CardPage++
+      
     }
 
     return(

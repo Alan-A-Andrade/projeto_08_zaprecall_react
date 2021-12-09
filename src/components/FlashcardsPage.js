@@ -6,7 +6,20 @@ export default function FlashcardsPage(Props) {
     return(
         <div className="flashcard-page">
             <HeaderZap/>
-            <Flashcard face={Props.face} cardStatus={Props.cardStatus} question={Props.question} answer={Props.answer} ThisCardNumber={Props.ThisCardNumber} NumberOfCards={Props.NumberOfCards}/>
+            <Flashcard 
+                deckName={Props.deckName}
+                deck={Props.deck}
+
+                CardPage={Props.CardPage}
+
+                face={Props.face} 
+                newFace={Props.newFace}
+                cardStatus={Props.cardStatus} 
+  
+                Flip={Props.Flip}
+                Picked={Props.Picked}
+            />
         </div>
     )
 }
+

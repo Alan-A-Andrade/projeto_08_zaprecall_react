@@ -23,6 +23,12 @@ body {
   padding-top: 234px;
 }
 
+.home-page .list-decks {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .button-zap {
   display: flex;
   align-items: center;
