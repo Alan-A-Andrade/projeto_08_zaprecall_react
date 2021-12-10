@@ -310,3 +310,28 @@ body {
 .flashcard.backface:not(.blank) .flashcard-footer>img {
   display: initial;
 }
+
+.endgame-page {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px
+}
+
+.endgame-page>div>h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+}
+
+.endgame-page>p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 26px;
+}

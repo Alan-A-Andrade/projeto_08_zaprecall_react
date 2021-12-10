@@ -2,6 +2,7 @@ import react from "react"
 import HomePage from "./components/Homepage"
 import FlashcardsPage from "./components/FlashcardsPage"
 import ExportDecks from "./assets/Decks"
+import Endgame from "./components/EndGame"
 import "./assets/css/reset.css"
 import "./assets/css/style.css"
 
@@ -13,13 +14,13 @@ export default function App () {
     const [Page, SetPage] = react.useState(RenderHomePage);
 
     let CardPage = 1;
-    let Goal = 0
+    let CorrectAnswers = 0
 
     function RenderHomePage(){
         
         return(
             <HomePage 
-                page= {ExportPickedDeck}
+                 page= {ExportPickedDeck} 
             />
         )
     }
@@ -53,31 +54,62 @@ export default function App () {
         
         if(CardPage === deck.total+1){
 
-            CardPage = 1;
-            Goal = 0
+            if(CorrectAnswers===deck.total){
 
-            SetPage(
-                <HomePage 
-                    page= {ExportPickedDeck}
+                SetPage(
+                    <Endgame
+                        EndTitle = "PARABÉNS!"
+                        Emoji= " 🥳"
+                        EndText = "Você não esqueceu de nenhum flashcard!"
+                        page ={BackToHomePage}
+                    />
+                )
+            }
+            else{
+
+                SetPage(
+                    <Endgame
+                    EndTitle = "Putz.."
+                    Emoji= " 😥"
+                    EndText = "Você esqueceu alguns flashcards..Não desanime! Na próxima você consegue!"
+                    page ={BackToHomePage}
                 />
-            )
+                )
+
+            }
+
+            CardPage = 1;
+            CorrectAnswers = 0
         }
 
         else{
 
         ExportPickedDeck(deckName, face, newFace, cardStatus)
         }
+
     }
 
     function UserPick(deckName, face, newFace, cardStatus){
 
         if(cardStatus ==="correct"){
-        Goal++
+        CorrectAnswers++
         }
 
         ExportPickedDeck(deckName, face, newFace, cardStatus)
         CardPage++
-        console.log(Goal)
+        console.log(CorrectAnswers)
+    }
+
+    function BackToHomePage() {
+
+        SetPage(
+
+            <HomePage 
+            page= {ExportPickedDeck} 
+            />
+        )
+
+
     }
 
     return(
