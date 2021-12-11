@@ -1,5 +1,5 @@
 * {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 html {
@@ -30,8 +30,8 @@ body {
   border: 1px solid #000000;
   box-sizing: border-box;
   border-radius: 12px;
-
-  margin-bottom: 30px;
+  padding-left: 16px;
+  margin-bottom: 16px;
 }
 
 .home-page input::placeholder {
@@ -47,7 +47,16 @@ body {
 .home-page .list-decks {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
+}
+
+.list-decks>p {
+  color: red;
+  text-align: center;
+  line-break: loose;
+  width: 450px;
+  transition: 0.5s ease-in-out;
 }
 
 .button-zap {
@@ -198,10 +207,11 @@ body {
   line-height: 19px;
 
   margin: 40px 0px;
-  padding: 0px 49px;
+  padding: 0px 33px;
 
   overflow: scroll;
-  text-align: justify;
+  text-align: left;
+  word-break: normal;
 
   display: none;
 
@@ -250,12 +260,33 @@ body {
   font-weight: bold;
 }
 
-.frontface {
-  transition: all .5s;
-}
+.frontface {}
 
-.backface {
-  transition: all .5s;
+.backface {}
+
+
+@keyframes shake {
+
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 
 .flashcard.backface .flashcard-footer>img {
@@ -282,11 +313,21 @@ body {
   border: 5px solid #000000;
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
 
+  animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+
 }
 
 .incorrect {
   border: 5px solid #F74848;
   box-shadow: 0px 8px 24px rgba(247, 72, 72, 0.12);
+
+  animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 
 }
 
@@ -294,12 +335,22 @@ body {
   border: 5px solid #62DB38;
   box-shadow: 0px 8px 24px rgba(98, 219, 56, 0.12);
 
+  animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+
 }
 
 
 .correct {
   border: 5px solid #FFEF61;
   box-shadow: 0px 8px 24px rgba(255, 239, 97, 0.12);
+
+  animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 
 }
 
@@ -322,6 +373,11 @@ body {
   gap: 16px
 }
 
+.endgame-page div:first-of-type {
+  display: flex;
+  gap: 1em;
+}
+
 .endgame-page>div>h1 {
   font-style: normal;
   font-weight: bold;
@@ -330,8 +386,15 @@ body {
 }
 
 .endgame-page>p {
+  width: 500px;
+  text-align: center;
+
   font-style: normal;
   font-weight: normal;
   font-size: 22px;
-  line-height: 26px;
+  line-height: 0.5em;
+}
+
+.hidden {
+  display: none;
 }

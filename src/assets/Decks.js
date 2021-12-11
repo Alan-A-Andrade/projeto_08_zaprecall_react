@@ -11,8 +11,7 @@ return Decks
 
 }
 
-
-export const ReactCards = [
+const ReactCards = [
 
 {cardNumber: "1" , question: "O que é JSX?", answer: "Uma extensão de linguagem do JavaScript"},
 {cardNumber: "2" , question: "O React é __", answer: "uma biblioteca JavaScript para construção de interfaces"},
@@ -25,7 +24,7 @@ export const ReactCards = [
 
 ]
 
-export const CombinadosReact = [
+const CombinadosReact = [
 
 {cardNumber: "1" , question: "O React ...", answer: "...diminui o trabalho, mas aumenta complexidade"},
 {cardNumber: "2" , question: "No início...", answer: "vai parecer que vocês estão regredindo"},

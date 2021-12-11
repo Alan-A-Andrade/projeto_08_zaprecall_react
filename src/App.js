@@ -3,121 +3,145 @@ import HomePage from "./components/Homepage"
 import FlashcardsPage from "./components/FlashcardsPage"
 import ExportDecks from "./assets/Decks"
 import Endgame from "./components/EndGame"
-import "./assets/css/reset.css"
-import "./assets/css/style.css"
 
 let Decks = ExportDecks()
 
-
 export default function App () {
-    
-    const [Page, SetPage] = react.useState(RenderHomePage);
+   
+	const [Page, SetPage] = react.useState(RenderHomePage);
 
-    let CardPage = 1;
-    let CorrectAnswers = 0
+	let goal = 1;
+	let CardPage = 1;
+	let CorrectAnswers = 0
 
-    function RenderHomePage(){
-        
-        return(
-            <HomePage 
-                 page= {ExportPickedDeck} 
-            />
-        )
-    }
+	function getGoal (event) {
+		goal=event.target.value
+	}
 
-    function ExportPickedDeck(deckName, face, newFace, cardStatus){
- 
-        let deck = Decks.find(element =>  element.name === deckName )
-     
-        SetPage(
+	function RenderHomePage(){
+				
+		return(
 
-            <FlashcardsPage
-            deckName={deckName}
-            deck = {deck}
+			<HomePage 
+				page= {ExportPickedDeck} 
+				getGoal={getGoal}
+				failGoal={""}
+			/>
+		)
+  }
 
-            CardPage={CardPage}
-            
-            face = {face}
-            newFace = {newFace}
-            cardStatus = {cardStatus} 
+	function ExportPickedDeck(deckName, face, newFace, cardStatus){
 
-            Flip = {FlipCard}
-            Picked ={UserPick}
-            />
-        )
-    
-    }
+		let deck = Decks.find(element => element.name === deckName )
 
-    function FlipCard(deckName, face, newFace, cardStatus){
-        
-        let deck = Decks.find(element =>  element.name === deckName )
-        
-        if(CardPage === deck.total+1){
+		if(goal <= 1) {
 
-            if(CorrectAnswers===deck.total){
+			SetPage(			
+			
+				<HomePage 
+					page= {ExportPickedDeck} 
+					failGoal={"Meta deve ser maior que 1"}
+					getGoal={getGoal}
+				/>
+			)
+		}
 
-                SetPage(
-                    <Endgame
-                        EndTitle = "PARABÉNS!"
-                        Emoji= " 🥳"
-                        EndText = "Você não esqueceu de nenhum flashcard!"
-                        page ={BackToHomePage}
-                    />
-                )
-            }
-            else{
+		else if(goal > deck.total){
+			SetPage(			
+			
+				<HomePage 
+					page= {ExportPickedDeck} 
+					failGoal={`Meta é superior ao número de cards no deck selecionado. Total de cards: ${deck.total}`}
+					getGoal={getGoal}
+				/>
+			)
+		}
 
-                SetPage(
-                    <Endgame
-                    EndTitle = "Putz.."
-                    Emoji= " 😥"
-                    EndText = "Você esqueceu alguns flashcards..Não desanime! Na próxima você consegue!"
-                    page ={BackToHomePage}
-                />
-                )
+		else{
+	
+			SetPage(
 
-            }
+				<FlashcardsPage
+					deckName={deckName}
+					deck = {deck}
+					CardPage={CardPage}
+					face = {face}
+					newFace = {newFace}
+					cardStatus = {cardStatus} 
+					Flip = {FlipCard}
+					Picked ={UserPick}
+				/>
+			)   
+		}
+	}
 
-            CardPage = 1;
-            CorrectAnswers = 0
-        }
+	function FlipCard(deckName, face, newFace, cardStatus){
+			
+		let deck = Decks.find(element =>  element.name === deckName )
 
-        else{
+		if(CardPage === deck.total+1){
 
-        ExportPickedDeck(deckName, face, newFace, cardStatus)
-        }
+			if(CorrectAnswers>=goal){
 
-    }
+				SetPage(
+					<Endgame
+						EndTitle = "PARABÉNS!"
+						Emoji= " 🥳"
+						EndText = "Você não esqueceu de nenhum flashcard!"
+						page ={BackToHomePage}
+					/>
+				)
+			}
 
-    function UserPick(deckName, face, newFace, cardStatus){
+			else{
 
-        if(cardStatus ==="correct"){
-        CorrectAnswers++
-        }
+				SetPage(
+					<Endgame
+						EndTitle = "Putz.."
+						Emoji= " 😥"
+						EndText = {`Você esqueceu ${deck.total - CorrectAnswers} flashcards..`}
+						EndText2 ="Não desanime! Na próxima você consegue!"
+						page ={BackToHomePage}
+					/>
+				)
+			}
 
-        ExportPickedDeck(deckName, face, newFace, cardStatus)
-        CardPage++
-        console.log(CorrectAnswers)
-    }
+			CardPage = 1;
+			CorrectAnswers = 0
+		}
 
-    function BackToHomePage() {
+		else{
 
-        SetPage(
+			ExportPickedDeck(deckName, face, newFace, cardStatus)
+		}
+	}
 
-            <HomePage 
-            page= {ExportPickedDeck} 
-            />
-        )
+	function UserPick(deckName, face, newFace, cardStatus){
 
+		if(cardStatus ==="correct"){
 
-    }
+			CorrectAnswers++
+		}
 
-    return(
-  
-        <>
-            {Page}
-        </>
-  
-    )
-  
+		ExportPickedDeck(deckName, face, newFace, cardStatus)
+
+		CardPage++
+	}
+
+	function BackToHomePage() {
+
+		SetPage(
+
+			<HomePage 
+				page= {ExportPickedDeck} 
+			/>
+		)
+	}
+
+	return(
+
+		<>
+			{Page}
+		</>
+	)
 }

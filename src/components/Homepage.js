@@ -5,19 +5,17 @@ import ExportDecks from "../assets/Decks"
 
 let Decks = ExportDecks()
 
-export default function HomePage ({page}) {
+export default function HomePage (Props) {
 
    return(
 
     <div className="home-page">
       <img src={Logo} alt="ZapRecall Logo"/>
         <div className="list-decks">
-        <input placeholder="Sua meta de zaps" />
-        {Decks.map((element,index) => <ButtonZap page={page} texto={element.name} key={index}/>)}
+        <input type="number" min="1" placeholder="Sua meta de zaps" onChange={Props.getGoal} />
+        <p>{Props.failGoal}</p>
+        {Decks.map((element,index) => <ButtonZap page={Props.page} texto={element.name} index={index}/>)}
         </div>
     </div>
-
-  )
-
-  
+  ) 
 }
