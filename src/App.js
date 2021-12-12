@@ -11,7 +11,7 @@ let goal, CardPage, CorrectAnswers, notValidGoal = ""
 export default function App () {
    
 	const [Page, SetPage] = react.useState(RenderHomePage);
-	const [StartState, SetStartStage] = react.useState(Start)
+	const [StartStage, SetStartStage] = react.useState(Start)
 
 	function Start(){
 		CardPage = 1;
