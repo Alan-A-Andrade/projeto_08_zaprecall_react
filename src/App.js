@@ -4,15 +4,21 @@ import FlashcardsPage from "./components/FlashcardsPage"
 import ExportDecks from "./assets/Decks"
 import Endgame from "./components/EndGame"
 
+
 let Decks = ExportDecks()
+let goal, CardPage, CorrectAnswers
 
 export default function App () {
    
 	const [Page, SetPage] = react.useState(RenderHomePage);
 
-	let goal = 1;
-	let CardPage = 1;
-	let CorrectAnswers = 0
+	const [StartState, SetStartStage] = react.useState(Start)
+
+	function Start(){
+		goal = 1;
+		CardPage = 1;
+		CorrectAnswers = 0
+	}
 
 	function getGoal (event) {
 		goal=event.target.value
@@ -23,14 +29,14 @@ export default function App () {
 		return(
 
 			<HomePage 
-				page= {ExportPickedDeck} 
+				page= {RenderFlashCard} 
 				getGoal={getGoal}
-				failGoal={""}
+				notValidGoal={""}
 			/>
 		)
   }
 
-	function ExportPickedDeck(deckName, face, newFace, cardStatus){
+	function RenderFlashCard(deckName, faceToShow, faceToFlip, borderColor){
 
 		let deck = Decks.find(element => element.name === deckName )
 
@@ -39,8 +45,8 @@ export default function App () {
 			SetPage(			
 			
 				<HomePage 
-					page= {ExportPickedDeck} 
-					failGoal={"Meta deve ser maior que 1"}
+					page= {RenderFlashCard} 
+					notValidGoal={"Meta deve ser maior que 1"}
 					getGoal={getGoal}
 				/>
 			)
@@ -50,8 +56,8 @@ export default function App () {
 			SetPage(			
 			
 				<HomePage 
-					page= {ExportPickedDeck} 
-					failGoal={`Meta é superior ao número de cards no deck selecionado. Total de cards: ${deck.total}`}
+					page= {RenderFlashCard} 
+					notValidGoal={`Meta é superior ao número de cards no deck. Total de cards: ${deck.total}`}
 					getGoal={getGoal}
 				/>
 			)
@@ -62,20 +68,20 @@ export default function App () {
 			SetPage(
 
 				<FlashcardsPage
-					deckName={deckName}
 					deck = {deck}
+					deckName={deckName}
 					CardPage={CardPage}
-					face = {face}
-					newFace = {newFace}
-					cardStatus = {cardStatus} 
+					faceToShow = {faceToShow}
+					faceToFlip = {faceToFlip}
+					borderColor = {borderColor} 
 					Flip = {FlipCard}
-					Picked ={UserPick}
+					Pick ={UserPick}
 				/>
 			)   
 		}
 	}
 
-	function FlipCard(deckName, face, newFace, cardStatus){
+	function FlipCard(deckName, faceToShow, faceToFlip, borderColor){
 			
 		let deck = Decks.find(element =>  element.name === deckName )
 
@@ -106,24 +112,23 @@ export default function App () {
 				)
 			}
 
-			CardPage = 1;
-			CorrectAnswers = 0
+			SetStartStage(Start)
 		}
 
 		else{
 
-			ExportPickedDeck(deckName, face, newFace, cardStatus)
+			RenderFlashCard(deckName, faceToShow, faceToFlip, borderColor)
 		}
 	}
 
-	function UserPick(deckName, face, newFace, cardStatus){
+	function UserPick(deckName, faceToShow, faceToFlip, borderColor){
 
-		if(cardStatus ==="correct"){
+		if(borderColor ==="correct"){
 
 			CorrectAnswers++
 		}
 
-		ExportPickedDeck(deckName, face, newFace, cardStatus)
+		RenderFlashCard(deckName, faceToShow, faceToFlip, borderColor)
 
 		CardPage++
 	}
@@ -133,7 +138,7 @@ export default function App () {
 		SetPage(
 
 			<HomePage 
-				page= {ExportPickedDeck} 
+				page= {RenderFlashCard} 
 			/>
 		)
 	}

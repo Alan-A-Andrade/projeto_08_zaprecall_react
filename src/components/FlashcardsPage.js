@@ -8,17 +8,14 @@ export default function FlashcardsPage(Props) {
       <HeaderZap/>
       <h1 className="deck-name">{Props.deckName}</h1>
       <Flashcard 
-        deckName={Props.deckName}
         deck={Props.deck}
-
+        deckName={Props.deckName}
         CardPage={Props.CardPage}
-
-        face={Props.face} 
-        newFace={Props.newFace}
-        cardStatus={Props.cardStatus} 
-
+        faceToShow={Props.faceToShow} 
+        faceToFlip={Props.faceToFlip}
+        borderColor={Props.borderColor} 
         Flip={Props.Flip}
-        Picked={Props.Picked}
+        Pick={Props.Pick}
       />
     </div>
   )

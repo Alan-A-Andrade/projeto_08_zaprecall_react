@@ -13,7 +13,7 @@ export default function HomePage (Props) {
       <img src={Logo} alt="ZapRecall Logo"/>
         <div className="list-decks">
         <input type="number" min="1" placeholder="Sua meta de zaps" onChange={Props.getGoal} />
-        <p>{Props.failGoal}</p>
+        <p>{Props.notValidGoal}</p>
         {Decks.map((element,index) => <ButtonZap page={Props.page} texto={element.name} index={index}/>)}
         </div>
     </div>

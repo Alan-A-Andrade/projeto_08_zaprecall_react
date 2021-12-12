@@ -8,11 +8,22 @@ export default function Flashcard(Props) {
 
 	return(
 			
-		<div data-identifier="flashcard" className={`flashcard ${Props.face} ${Props.cardStatus}`}>
-			<FlashcardHeader questionText={deck.cards[CardPage-1].question} cardNumber={CardPage} cardTotal={deck.total}/>
+		<div data-identifier="flashcard" className={`flashcard ${Props.faceToShow} ${Props.borderColor}`}>
+			<FlashcardHeader 
+				questionText={deck.cards[CardPage-1].question} 
+				cardNumber={CardPage} 
+				cardTotal={deck.total}
+			/>
 			<h1>{deck.cards[CardPage-1].question}</h1>
 			<p>{deck.cards[CardPage-1].answer}</p>
-			<FlashcardFooter Flip={Props.Flip} deckName={Props.deckName} Picked={Props.Picked} face={Props.face} newFace={Props.newFace} cardStatus={Props.cardStatus}/>
+			<FlashcardFooter 
+				deckName={Props.deckName} 
+				faceToShow={Props.faceToShow} 
+				faceToFlip={Props.faceToFlip} 
+				borderColor={Props.borderColor}
+				Flip={Props.Flip} 
+				Pick={Props.Pick} 
+			/>
 		</div>
 	)
 

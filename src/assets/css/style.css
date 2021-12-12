@@ -54,8 +54,10 @@ body {
 .list-decks>p {
   color: red;
   text-align: center;
+  justify-content: center;
+  align-items: center;
   line-break: loose;
-  width: 450px;
+  width: 345px;
   transition: 0.5s ease-in-out;
 }
 
