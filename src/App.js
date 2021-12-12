@@ -5,23 +5,22 @@ import ExportDecks from "./assets/Decks"
 import Endgame from "./components/EndGame"
 
 
-let Decks = ExportDecks()
-let goal, CardPage, CorrectAnswers
+let listOfDecks = ExportDecks()
+let goal, CardPage, CorrectAnswers, notValidGoal = ""
 
 export default function App () {
    
 	const [Page, SetPage] = react.useState(RenderHomePage);
-
 	const [StartState, SetStartStage] = react.useState(Start)
 
 	function Start(){
-		goal = 1;
 		CardPage = 1;
 		CorrectAnswers = 0
+		goal = 0
 	}
 
 	function getGoal (event) {
-		goal=event.target.value
+		goal=parseInt(event.target.value)
 	}
 
 	function RenderHomePage(){
@@ -31,37 +30,44 @@ export default function App () {
 			<HomePage 
 				page= {RenderFlashCard} 
 				getGoal={getGoal}
-				notValidGoal={""}
+				notValidGoal={notValidGoal}
 			/>
 		)
-  }
+	}
 
 	function RenderFlashCard(deckName, faceToShow, faceToFlip, borderColor){
 
-		let deck = Decks.find(element => element.name === deckName )
+		let deck = listOfDecks.find(element => element.name === deckName )
 
-		if(goal <= 1) {
+		let isGoalValid = !(goal <= 1 || goal > deck.total || isNaN(goal))
+		
+
+		if(isGoalValid === false) {
+
+			switch(true) {
+
+				case goal <= 1:
+					notValidGoal = "Meta deve ser maior que 1"
+					break;
+
+				case goal > deck.total:
+					notValidGoal = `Meta é superior ao número de cards no deck. Total de cards: ${deck.total}`
+					break;
+				
+				default:
+					notValidGoal = "Meta deve ser um número inteiro"
+			}
 
 			SetPage(			
 			
 				<HomePage 
 					page= {RenderFlashCard} 
-					notValidGoal={"Meta deve ser maior que 1"}
+					notValidGoal={notValidGoal}
 					getGoal={getGoal}
 				/>
 			)
 		}
 
-		else if(goal > deck.total){
-			SetPage(			
-			
-				<HomePage 
-					page= {RenderFlashCard} 
-					notValidGoal={`Meta é superior ao número de cards no deck. Total de cards: ${deck.total}`}
-					getGoal={getGoal}
-				/>
-			)
-		}
 
 		else{
 	
@@ -83,7 +89,7 @@ export default function App () {
 
 	function FlipCard(deckName, faceToShow, faceToFlip, borderColor){
 			
-		let deck = Decks.find(element =>  element.name === deckName )
+		let deck = listOfDecks.find(element =>  element.name === deckName )
 
 		if(CardPage === deck.total+1){
 
