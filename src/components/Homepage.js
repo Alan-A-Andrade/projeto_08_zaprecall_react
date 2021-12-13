@@ -14,7 +14,7 @@ export default function HomePage (Props) {
         <div className="list-decks">
         <input placeholder="Sua meta de zaps" onChange={Props.getGoal} />
         <p>{Props.notValidGoal}</p>
-        {listOfDecks.map((element,index) => <ButtonZap dataID={"start-zap-recall"} page={Props.page} texto={element.name} index={index}/>)}
+        {listOfDecks.map((element,index) => <ButtonZap dataID={"start-zap-recall"} nextPage={Props.nextPage} texto={element.name} index={index}/>)}
         </div>
     </div>
   ) 

@@ -10,7 +10,7 @@ export default function FlashcardsPage(Props) {
       <Flashcard 
         deck={Props.deck}
         deckName={Props.deckName}
-        CardPage={Props.CardPage}
+        cardPage={Props.cardPage}
         faceToShow={Props.faceToShow} 
         faceToFlip={Props.faceToFlip}
         borderColor={Props.borderColor} 

@@ -13,7 +13,7 @@ export default function Endgame(Props){
       </div>
       <p>{Props.EndText}</p>
       <p>{Props.EndText2}</p>
-      <ButtonZap page={Props.page} texto="Tentar novamente"/>
+      <ButtonZap nextPage={Props.nextPage} texto="Tentar novamente"/>
     </div>
   )
 }

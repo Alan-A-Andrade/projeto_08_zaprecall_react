@@ -6,7 +6,7 @@ import Endgame from "./components/EndGame"
 
 
 let listOfDecks = ExportDecks()
-let goal, CardPage, CorrectAnswers, notValidGoal = ""
+let goal, cardPage, counterCorrectAnswers, notValidGoal = ""
 
 export default function App () {
    
@@ -14,8 +14,8 @@ export default function App () {
 	const [StartStage, SetStartStage] = react.useState(Start)
 
 	function Start(){
-		CardPage = 1;
-		CorrectAnswers = 0
+		cardPage = 1;
+		counterCorrectAnswers = 0
 		goal = 0
 	}
 
@@ -28,7 +28,7 @@ export default function App () {
 		return(
 
 			<HomePage 
-				page= {RenderFlashCard} 
+				nextPage= {RenderFlashCard} 
 				getGoal={getGoal}
 				notValidGoal={notValidGoal}
 			/>
@@ -61,7 +61,7 @@ export default function App () {
 			SetPage(			
 			
 				<HomePage 
-					page= {RenderFlashCard} 
+					nextPage= {RenderFlashCard} 
 					notValidGoal={notValidGoal}
 					getGoal={getGoal}
 				/>
@@ -76,7 +76,7 @@ export default function App () {
 				<FlashcardsPage
 					deck = {deck}
 					deckName={deckName}
-					CardPage={CardPage}
+					cardPage={cardPage}
 					faceToShow = {faceToShow}
 					faceToFlip = {faceToFlip}
 					borderColor = {borderColor} 
@@ -91,16 +91,16 @@ export default function App () {
 			
 		let deck = listOfDecks.find(element =>  element.name === deckName )
 
-		if(CardPage === deck.total+1){
+		if(cardPage === deck.total+1){
 
-			if(CorrectAnswers>=goal){
+			if(counterCorrectAnswers>=goal){
 
 				SetPage(
 					<Endgame
 						EndTitle = "PARABÉNS!"
 						Emoji= " 🥳"
 						EndText = "Você não esqueceu de nenhum flashcard!"
-						page ={BackToHomePage}
+						nextPage ={BackToHomePage}
 					/>
 				)
 			}
@@ -111,9 +111,9 @@ export default function App () {
 					<Endgame
 						EndTitle = "Putz.."
 						Emoji= " 😥"
-						EndText = {`Você esqueceu ${deck.total - CorrectAnswers} flashcards..`}
+						EndText = {`Você esqueceu ${deck.total - counterCorrectAnswers} flashcards..`}
 						EndText2 ="Não desanime! Na próxima você consegue!"
-						page ={BackToHomePage}
+						nextPage ={BackToHomePage}
 					/>
 				)
 			}
@@ -131,12 +131,12 @@ export default function App () {
 
 		if(borderColor ==="correct"){
 
-			CorrectAnswers++
+			counterCorrectAnswers++
 		}
 
 		RenderFlashCard(deckName, faceToShow, faceToFlip, borderColor)
 
-		CardPage++
+		cardPage++
 	}
 
 	function BackToHomePage() {
@@ -144,7 +144,7 @@ export default function App () {
 		SetPage(
 
 			<HomePage 
-				page= {RenderFlashCard} 
+				nextPage= {RenderFlashCard} 
 			/>
 		)
 	}
