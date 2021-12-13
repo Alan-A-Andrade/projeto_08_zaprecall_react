@@ -140,11 +140,14 @@ export default function App () {
 	}
 
 	function BackToHomePage() {
+		SetStartStage(Start)
 
 		SetPage(
 
 			<HomePage 
 				nextPage= {RenderFlashCard} 
+				notValidGoal={""}
+				getGoal={getGoal}
 			/>
 		)
 	}
