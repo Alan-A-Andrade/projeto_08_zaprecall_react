@@ -11,7 +11,7 @@ export default function FlashcardFooter(Props){
 
 	function OptionBox (Props) {
 		return(
-			<div onClick={() => Props.Pick(Props.deckName, "backface", "frontface" , Props.borderColor)} className="answer">
+			<div key={Props.index} onClick={() => Props.Pick(Props.deckName, "backface", "frontface" , Props.borderColor)} className="answer">
 			 <p>{Props.OptionsText}</p>
 			</div>
 		)
@@ -26,14 +26,15 @@ export default function FlashcardFooter(Props){
 				alt="Turn icon" 
 			/>
 
-			{listOfOptions.map(element =>
+			{listOfOptions.map((element, index) =>
 				
-					<OptionBox 
+					(<OptionBox 
+						key={index}
 						Pick={Props.Pick}
 						deckName={Props.deckName} 
 						borderColor={element.borderColor} 
 						OptionsText={element.OptionsText} 
-					/>
+					/>)
 				)		
 			}
 		</nav>

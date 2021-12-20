@@ -11,6 +11,7 @@ let goal, cardPage, counterCorrectAnswers, notValidGoal = ""
 export default function App () {
    
 	const [Page, SetPage] = react.useState(RenderHomePage);
+  // eslint-disable-next-line
 	const [StartStage, SetStartStage] = react.useState(Start)
 
 	function Start(){
